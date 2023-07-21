@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 import { DateTime } from "luxon";
 import moment from "moment";
@@ -15,7 +15,9 @@ const App = () => {
 
   const seedDate = DateTime.local();
 
-  const convertFormat = () => {
+  const convertFormat = (e: FormEvent) => {
+    e.preventDefault();
+
     setLuxonString(mapFormat(momentString));
     setMomentFormattedDate(moment(seedDate.toJSDate()).format(momentString));
     setLuxonFormattedDate(seedDate.toFormat(mapFormat(momentString)));
@@ -35,33 +37,35 @@ const App = () => {
           output the number with an ordinal (like "1st", "2nd", etc.). Luxon.js
           does not have built-in support for this kind of output.
         </p>
-        <div className="mt-8">
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium leading-6 text-gray-900"
-          >
-            MomentJS Formatting String
-          </label>
-          <div className="mt-2">
-            <input
-              type="text"
-              name="momentString"
-              id="string"
-              className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              placeholder="yyyy-mm-dd"
-              value={momentString}
-              onChange={(e) => setMomentString(e.target.value)}
-            />
+        <form onSubmit={convertFormat}>
+          <div className="mt-8">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              MomentJS Formatting String
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="momentString"
+                id="string"
+                className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="yyyy-mm-dd"
+                value={momentString}
+                onChange={(e) => setMomentString(e.target.value)}
+              />
+            </div>
           </div>
-        </div>
-        <div className="mt-2">
-          <button
-            className="bg-slate-800 text-white rounded-lg p-2"
-            onClick={convertFormat}
-          >
-            Convert
-          </button>
-        </div>
+          <div className="mt-2">
+            <button
+              type="submit"
+              className="bg-slate-800 text-white rounded-lg p-2"
+            >
+              Convert
+            </button>
+          </div>
+        </form>
         {luxonString.length > 0 && (
           <>
             <hr className="my-4" />
@@ -82,15 +86,14 @@ const App = () => {
         )}
       </div>
       <footer className="text-center">
-          <p>
-            Coded with ❤️ by{" "}
-            <a href="https://jodylecompte.com">Jody LeCompte</a>.
-          </p>
-          <p>
-            Code available on{" "}
-            <a href="https://github.com/jodylecompte/moment-to-luxon">Github</a>
-          </p>
-        </footer>
+        <p>
+          Coded with ❤️ by <a href="https://jodylecompte.com">Jody LeCompte</a>.
+        </p>
+        <p>
+          Code available on{" "}
+          <a href="https://github.com/jodylecompte/moment-to-luxon">Github</a>
+        </p>
+      </footer>
     </div>
   );
 };
