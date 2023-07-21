@@ -3,13 +3,23 @@ import { useState } from "react";
 import { DateTime } from "luxon";
 import moment from "moment";
 
+import { mapFormat } from "./lib/mapFormat";
+
 import "./assets/global.css";
 
 const App = () => {
-  const [momentString, setMomentString] = useState("yyyy");
-  const [luxonString, setLuxonString] = useState("yyyy");
+  const [momentString, setMomentString] = useState("");
+  const [luxonString, setLuxonString] = useState("");
+  const [momentFormattedDate, setMomentFormattedDate] = useState("");
+  const [luxonFormattedDate, setLuxonFormattedDate] = useState("");
 
   const seedDate = DateTime.local();
+
+  const convertFormat = () => {
+    setLuxonString(mapFormat(momentString));
+    setMomentFormattedDate(moment(seedDate.toJSDate()).format(momentString));
+    setLuxonFormattedDate(seedDate.toFormat(mapFormat(momentString)));
+  };
 
   return (
     <div className="m-auto max-w-4xl">
@@ -36,13 +46,18 @@ const App = () => {
             type="text"
             name="momentString"
             id="string"
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             placeholder="yyyy-mm-dd"
+            value={momentString}
+            onChange={(e) => setMomentString(e.target.value)}
           />
         </div>
       </div>
       <div className="mt-2">
-        <button className="bg-slate-800 text-white rounded-lg p-2">
+        <button
+          className="bg-slate-800 text-white rounded-lg p-2"
+          onClick={convertFormat}
+        >
           Convert
         </button>
       </div>
@@ -53,18 +68,14 @@ const App = () => {
           <div className="mt-4">
             <div className="font-bold">Seed Data: </div>
             <div>{seedDate.toString()}</div>
-          </div>
-          <div className="mt-4">
-            <div className="font-bold">Moment String: </div>
-            <div>{momentString}</div>
             <div className="font-bold mt-2">Moment Formatted Date: </div>
-            <div>{moment(seedDate.toJSDate()).format(momentString)}</div>
+            <div>{momentFormattedDate}</div>
           </div>
-          <div className="mt-4">
-          <div className="font-bold">Luxon String: </div>
+          <div className="mt-2">
+            <div className="font-bold">Luxon String: </div>
             <div>{luxonString}</div>
             <div className="font-bold mt-2">Luxon Formatted Date: </div>
-            <div>{seedDate.toFormat(luxonString)}</div>
+            <div>{luxonFormattedDate}</div>
           </div>
         </>
       )}
