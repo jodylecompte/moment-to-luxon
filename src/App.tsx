@@ -50,7 +50,7 @@ const App = () => {
                 type="text"
                 name="momentString"
                 id="string"
-                className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 max-w-[300px]"
                 placeholder="yyyy-mm-dd"
                 value={momentString}
                 onChange={(e) => setMomentString(e.target.value)}
@@ -60,7 +60,7 @@ const App = () => {
           <div className="mt-2">
             <button
               type="submit"
-              className="bg-slate-800 text-white rounded-lg p-2"
+              className="bg-zinc-500 font-bold text-white rounded-lg p-2"
             >
               Convert
             </button>
@@ -87,11 +87,11 @@ const App = () => {
       </div>
       <footer className="text-center">
         <p>
-          Coded with ❤️ by <a href="https://jodylecompte.com">Jody LeCompte</a>.
+          Coded with ❤️ by <a className="text-blue-500" href="https://jodylecompte.com">Jody LeCompte</a>.
         </p>
         <p>
           Code available on{" "}
-          <a href="https://github.com/jodylecompte/moment-to-luxon">Github</a>
+          <a className="text-blue-500" href="https://github.com/jodylecompte/moment-to-luxon">Github</a>
         </p>
       </footer>
     </div>
