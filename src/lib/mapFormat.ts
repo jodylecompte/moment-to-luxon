@@ -32,7 +32,11 @@ const momentToLuxonMap: {[key: string]: string} = {
   "Z": "ZZ",
   "ZZ": "ZZ",
   "X": "X",
-  "x": "x"
+  "x": "x",
+  "[": "'",
+  "]": "'",
+  "\\[": "'\\'",
+  "\\]": "'",
 };
 
 export const mapFormat = (momentFormat: string) => {
